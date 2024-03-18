@@ -2,11 +2,16 @@ import { Link } from "react-router-dom";
 import logo from '../../../assets/logo.svg'
 
 
+
 const NavBar = () => {
+
+
     const navItem = <>
         <li><Link to='/'>Home</Link></li>
-        <li><Link to='/login'>LogIn</Link></li>
-        <li><Link to='/signup'>SignUp</Link></li>
+        <li><Link to='/login'>About</Link></li>
+        <li><Link to='/signup'>Services</Link></li>
+        <li><Link to='/signup'>Blog</Link></li>
+        <li><Link to='/signup'>Contact</Link></li>
 
 
     </>

@@ -60,7 +60,7 @@ const SignUP = () => {
                             </div>
                             <div className="form-control mt-6">
 
-                                <input className="btn btn-primary" type="submit" value="Login" />
+                                <input className="btn btn-primary" type="submit" value="SignUp" />
                             </div>
                         </form>
                         <p className='text-center'>Already Have An Account?

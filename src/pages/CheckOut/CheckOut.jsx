@@ -5,11 +5,11 @@ import { AuthContext } from "../../Provider/AuthProvider";
 
 const CheckOut = () => {
   const service = useLoaderData();
-  
-  const {title,_id,img } = service;
-  const {user}= useContext(AuthContext);
 
-  const handleService = (event) =>{
+  const { title, _id, img } = service;
+  const { user } = useContext(AuthContext);
+
+  const handleService = (event) => {
     event.preventDefault();
     const form = event.target;
     const name = form.name.value;
@@ -17,26 +17,31 @@ const CheckOut = () => {
     const phone = form.number.value;
     const email = form.email.value;
 
-    console.log(name,date,email,phone)
-
-    const order ={
-      customerName:name,
+    const booking = {
+      customerName: name,
       date,
-      img,
       email,
       phone,
-      service_id:_id,
+      img,
+      service_id: _id,
       service: title,
     }
-    console.log(order)
 
-    // fetch('http://localhost:5000/bookings',{
+    fetch('http://localhost:5000/bookings', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
 
-    // })
-    // .then(res => res.json())
-    // .then(data => {
-    //   console.log(data);
-    // })
+      },
+      body: JSON.stringify(booking)
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        form.reset();
+      })
+
+
 
   }
   return (
@@ -57,7 +62,7 @@ const CheckOut = () => {
             <label className="label">
               <span className="label-text">Date</span>
             </label>
-            <input type="date"  name="date" className="input input-bordered" />
+            <input type="date" name="date" className="input input-bordered" />
           </div>
 
           <div className="form-control">
