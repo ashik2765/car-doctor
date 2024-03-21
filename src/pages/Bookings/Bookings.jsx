@@ -18,10 +18,11 @@ const Bookings = () => {
     return (
 
 
-        <div className="overflow-x-auto">
-            <table className="w-full md:w-4/5 mx-auto">
-                <thead className="bg-gray-200">
+        <div className="overflow-x-auto ">
+            <table className="w-full md:w-4/5 mx-auto ">
+                <thead className= "bg-gray-200 ">
                     <tr>
+                        <th className="px-4 py-2"></th>
                         <th className="px-4 py-2 text-start">Images</th>
                         <th className="px-4 py-2">Service Name</th>
                         <th className="px-4 py-2">Date</th>
