@@ -5,8 +5,7 @@ import { AuthContext } from "../../Provider/AuthProvider";
 
 const CheckOut = () => {
   const service = useLoaderData();
-
-  const { title, _id, img } = service;
+  const { title, _id, img, price } = service;
   const { user } = useContext(AuthContext);
 
   const handleService = (event) => {
@@ -23,6 +22,7 @@ const CheckOut = () => {
       email,
       phone,
       img,
+      price,
       service_id: _id,
       service: title,
     }
@@ -31,13 +31,15 @@ const CheckOut = () => {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
-
       },
       body: JSON.stringify(booking)
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data)
+
+        if (data.insertedId) {
+          alert('Service booked successfully')
+        }
         form.reset();
       })
 
