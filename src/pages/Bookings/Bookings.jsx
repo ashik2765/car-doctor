@@ -15,12 +15,29 @@ const Bookings = () => {
             .then(data => setBookings(data))
     }, []);
 
+    const handleDelete = (id) => {
+        const procced = confirm('Are you want to delete');
+        if (procced) {
+            fetch(`http://localhost:5000/bookings/${id}`, {
+                method: 'DELETE'
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.deletedCount > 0) {
+                        alert('Delete successfully');
+                        const remaining = bookings.filter(booking => booking._id !== id);
+                        setBookings(remaining);
+                    }
+                })
+        }
+    }
+
     return (
 
 
         <div className="overflow-x-auto ">
             <table className="w-full md:w-4/5 mx-auto ">
-                <thead className= "bg-gray-200 ">
+                <thead className="bg-gray-200 ">
                     <tr>
                         <th className="px-4 py-2"></th>
                         <th className="px-4 py-2 text-start">Images</th>
@@ -35,6 +52,7 @@ const Bookings = () => {
                         <BookingRow
                             key={booking._id}
                             booking={booking}
+                            handleDelete={handleDelete}
                         />
                     ))}
                 </tbody>
