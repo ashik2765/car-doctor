@@ -1,11 +1,14 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logo from '../../assets/images/login/login.svg'
 import { useContext } from 'react';
 import { AuthContext } from '../../Provider/AuthProvider';
 
 const Login = () => {
 
-    const {signIn}= useContext(AuthContext);
+    const { signIn } = useContext(AuthContext);
+    const location = useLocation();
+    const nevigate = useNavigate();
+    const from = location.state?.from?.pathname || '/';
 
     const hadleLogin = (event) => {
         event.preventDefault();
@@ -13,13 +16,14 @@ const Login = () => {
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
-        signIn(email,password)
-        .then(result=>{
-            const user = result.user
-            console.log(user)
+        signIn(email, password)
+            .then(result => {
+                const user = result.user
+                console.log(user)
+                nevigate(from, { replace: true })
 
-        })
-        .catch(error=>console.log(error))
+            })
+            .catch(error => console.log(error))
     }
     return (
         <div className="hero min-h-screen bg-base-200">
