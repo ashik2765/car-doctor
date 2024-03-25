@@ -19,9 +19,19 @@ const Login = () => {
         signIn(email, password)
             .then(result => {
                 const user = result.user
-                console.log(user)
-                nevigate(from, { replace: true })
-
+                const loggendUser = { email: user.email };
+                fetch(`http://localhost:5000/jwt`, {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(loggendUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        localStorage.setItem('car-access-token', data.token);
+                        nevigate(from, { replace: true })
+                    });
             })
             .catch(error => console.log(error))
     }
