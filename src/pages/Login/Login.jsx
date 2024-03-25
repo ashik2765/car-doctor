@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logo from '../../assets/images/login/login.svg'
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '../../Provider/AuthProvider';
 
 const Login = () => {
@@ -9,6 +9,7 @@ const Login = () => {
     const location = useLocation();
     const nevigate = useNavigate();
     const from = location.state?.from?.pathname || '/';
+    const [Error, setError] = useState();
 
     const hadleLogin = (event) => {
         event.preventDefault();
@@ -33,13 +34,12 @@ const Login = () => {
                         nevigate(from, { replace: true })
                     });
             })
-            .catch(error => console.log(error))
+            .catch(error => setError(error.message))
     }
     return (
         <div className="hero min-h-screen bg-base-200">
             <div className="hero-content flex-col  lg:flex-row">
                 <div className="text-center lg:text-left w-1/2 mr-12">
-
                     <img src={logo} alt="" />
                 </div>
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
@@ -47,6 +47,7 @@ const Login = () => {
                         <h1 className="text-2xl text-center font-bold">Login</h1>
                         <form onSubmit={hadleLogin}>
                             <div className="form-control">
+                                <p>{Error}</p>
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
@@ -62,7 +63,6 @@ const Login = () => {
                                 </label>
                             </div>
                             <div className="form-control mt-6">
-
                                 <input className="btn btn-primary" type="submit" value="Login" />
                             </div>
                         </form>
